@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<form method="get" class="row g-2 mb-3">
+  <div class="col-md-3">{{ form.periodo }}</div>
+  <div class="col-md-4">{{ form.disciplina }}</div>
+  <div class="col-md-3">{{ form.situacao }}</div>
+  <div class="col-md-2"><button class="btn btn-primary w-100">Filtrar</button></div>
+</form>
+{% if vazio %}
+  <div class="alert alert-info">Nenhum registro para os filtros selecionados.</div>
+{% else %}
+<div class="row g-3 mb-3">
+  <div class="col-md-3"><div class="card p-3"><small>Taxa de aprovação</small>
+    <strong class="fs-3">{{ kpis.taxa_aprovacao|default:"-" }}%</strong></div></div>
+  <div class="col-md-3"><div class="card p-3"><small>Média geral</small>
+    <strong class="fs-3">{{ kpis.media_geral }}</strong></div></div>
+  <div class="col-md-3"><div class="card p-3"><small>Frequência média</small>
+    <strong class="fs-3">{{ kpis.frequencia_media }}%</strong></div></div>
+  <div class="col-md-3"><div class="card p-3 border-danger"><small>Estudantes em risco (período em curso)</small>
+    <strong class="fs-3 text-danger">{{ kpis.alunos_em_risco }}</strong>
+    <small>{{ kpis.alunos_em_risco_critico }} em nível crítico</small></div></div>
+</div>
+<div class="row g-3">
+  <div class="col-lg-6">{{ g_aprovacao|safe }}</div>
+  <div class="col-lg-6">{{ g_evolucao|safe }}</div>
+  <div class="col-lg-6">{{ g_distribuicao|safe }}</div>
+  {% if g_coortes %}<div class="col-lg-6">{{ g_coortes|safe }}</div>{% endif %}
+</div>
+<a class="btn btn-outline-primary mt-3" href="{% url 'exportar' 'csv' %}?{{ request.GET.urlencode }}">Exportar CSV</a>
+<a class="btn btn-outline-primary mt-3" href="{% url 'exportar' 'pdf' %}?{{ request.GET.urlencode }}">Exportar PDF</a>
+{% endif %}
+{% endblock %}

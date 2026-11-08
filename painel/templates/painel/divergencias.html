@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<h1 class="h4">Controle de qualidade dos dados</h1>
+<p>Diários encerrados em que a média ou o resultado armazenados diferem dos recalculados
+pelas regras do SADA: <strong>{{ total }}</strong>.</p>
+{% if divergencias %}
+<table class="table table-sm table-striped">
+  <thead><tr><th>Diário</th><th>Matrícula</th><th>Disciplina</th><th>Período</th>
+    <th>Nota armazenada</th><th>Média recalculada</th><th>Resultado armazenado</th>
+    <th>Resultado recalculado</th></tr></thead>
+  <tbody>
+  {% for d in divergencias %}
+    <tr><td>{{ d.codigodiario }}</td><td>{{ d.matricula }}</td><td>{{ d.nomedisciplina }}</td>
+      <td>{{ d.periodo }}</td><td>{{ d.nota_armazenada }}</td><td>{{ d.media }}</td>
+      <td>{{ d.resultado_armazenado }}</td><td>{{ d.resultado }}</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<div class="alert alert-success">Nenhuma divergência encontrada.</div>
+{% endif %}
+{% endblock %}

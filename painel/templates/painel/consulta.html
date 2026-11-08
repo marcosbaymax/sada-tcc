@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<h1 class="h4 mb-3">Consulta de desempenho</h1>
+<form method="get" class="row g-2 mb-3">
+  <div class="col-md-3">{{ form.periodo }}</div>
+  <div class="col-md-3">{{ form.disciplina }}</div>
+  <div class="col-md-2">{{ form.situacao }}</div>
+  <div class="col-md-3">{{ form.busca }}</div>
+  <div class="col-md-1"><button class="btn btn-primary w-100">Filtrar</button></div>
+</form>
+<table class="table table-sm table-striped align-middle">
+  <thead><tr><th>Matrícula</th><th>Estudante</th><th>Disciplina</th><th>Período</th>
+    <th>Média</th><th>Frequência (%)</th><th>Resultado</th><th>Risco</th></tr></thead>
+  <tbody>
+  {% for r in pagina %}
+    <tr {% if r.risco == "CRITICO" %}class="table-danger"{% elif r.risco == "ATENCAO" %}class="table-warning"{% endif %}>
+      <td><a href="{% url 'historico' r.matricula %}">{{ r.matricula }}</a></td>
+      <td>{{ r.nomealuno }}</td><td>{{ r.nomedisciplina }}</td><td>{{ r.periodo }}</td>
+      <td>{{ r.media|floatformat:2 }}</td><td>{{ r.frequencia|floatformat:1 }}</td>
+      <td>{{ r.resultado }}</td><td>{{ r.risco|default_if_none:"" }}</td>
+    </tr>
+  {% empty %}
+    <tr><td colspan="8" class="text-center">Nenhum registro para os filtros selecionados.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% if pagina.has_other_pages %}
+<nav class="d-flex gap-2">
+  {% if pagina.has_previous %}<a class="btn btn-sm btn-outline-primary" href="?{{ request.GET.urlencode }}&pagina={{ pagina.previous_page_number }}">Anterior</a>{% endif %}
+  <span class="align-self-center">Página {{ pagina.number }} de {{ pagina.paginator.num_pages }}</span>
+  {% if pagina.has_next %}<a class="btn btn-sm btn-outline-primary" href="?{{ request.GET.urlencode }}&pagina={{ pagina.next_page_number }}">Próxima</a>{% endif %}
+</nav>
+{% endif %}
+{% endblock %}

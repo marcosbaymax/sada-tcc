@@ -1,0 +1,29 @@
+sada/                          # raiz do projeto
+├── manage.py
+├── requirements.txt
+├── pytest.ini
+├── sada/                      # configuração do projeto Django
+│   ├── settings.py            # PostgreSQL, perfis, segurança (variáveis de ambiente)
+│   ├── urls.py
+│   └── wsgi.py
+├── academico/                 # aplicativo de domínio
+│   ├── models.py              # 10 modelos do esquema do web acadêmico + PerfilProfessor
+│   ├── regras.py              # regras de negócio puras (sem Django)
+│   ├── matricula.py           # estrutura AA CC S T NNNN do número de matrícula
+│   ├── grade_si.py            # matriz curricular de Sistemas de Informação
+│   ├── services.py            # visibilidade por perfil (RN07)
+│   ├── forms.py               # filtros da consulta
+│   ├── views.py               # painel, consulta, histórico, divergências, exportação
+│   ├── urls.py
+│   ├── exportacao.py          # CSV e PDF
+│   ├── simulacao.py           # gerador de dados simulados (semente 42)
+│   └── management/commands/gerar_dados.py
+├── painel/                    # aplicativo de indicadores e gráficos
+│   ├── indicadores.py         # preparar() e indicadores em pandas
+│   ├── consultas.py           # QuerySet -> DataFrame
+│   ├── graficos.py            # gráficos Plotly
+│   └── templates/painel/      # painel, consulta, histórico, divergências
+├── templates/                 # base.html e registration/login.html
+├── sql/                       # schema.sql, papeis.sql, indicadores.sql (Q1 a Q5)
+├── scripts/                   # conferir_resultados.py e validar_pg.py
+└── tests/                     # test_regras, test_matricula, test_grade, test_modulos, test_django

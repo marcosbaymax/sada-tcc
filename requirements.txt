@@ -1,0 +1,9 @@
+Django>=5.2,<5.3
+psycopg[binary]>=3.2,<4
+pandas>=2.2
+numpy>=1.26
+plotly>=5.24
+Faker>=30
+reportlab>=4.2
+pytest>=8
+pytest-django>=4.9

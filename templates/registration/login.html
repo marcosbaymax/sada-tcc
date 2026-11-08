@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<div class="row justify-content-center"><div class="col-md-4">
+  <h1 class="h4 mb-3">Entrar</h1>
+  {% if form.errors %}<div class="alert alert-danger">Usuário ou senha inválidos.</div>{% endif %}
+  <form method="post">{% csrf_token %}
+    <div class="mb-3"><label class="form-label" for="id_username">Usuário</label>
+      <input class="form-control" name="username" id="id_username" autofocus required></div>
+    <div class="mb-3"><label class="form-label" for="id_password">Senha</label>
+      <input class="form-control" type="password" name="password" id="id_password" required></div>
+    <button class="btn btn-primary w-100">Entrar</button>
+    <input type="hidden" name="next" value="{{ next }}">
+  </form>
+</div></div>
+{% endblock %}

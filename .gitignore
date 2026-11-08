@@ -1,0 +1,16 @@
+# ambiente virtual e caches
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# segredos e arquivos locais: nunca versionar
+.env
+*.env
+evidencias/
+db.sqlite3
+
+# editores e sistema
+.idea/
+.vscode/
+.DS_Store
