@@ -60,6 +60,7 @@ Pré-requisitos: Python 3.12 ou superior e PostgreSQL 16 instalados. O `psql` de
 
 2. **Banco de dados** (no `psql`, como `postgres`; troque a senha)
    ```sql
+   psql -h localhost -U postgres
    CREATE ROLE sada LOGIN PASSWORD 'defina-uma-senha' CREATEDB;
    CREATE DATABASE sada OWNER sada ENCODING 'UTF8' TEMPLATE template0;
    ```
